@@ -7,9 +7,15 @@ on:
         deubg:
           type: boolean
           default: false
+env:
+  MY_WORKFLOW_VAR: 'workflow'
+  MY_OVERWRITTEN_VAR: 'workflow'
 
 jobs: 
   echo-data:
+    env:
+      MY_JOB_VAR: 'job'
+      MY_OVERWRITTEN_VAR: 'job'
     runs-on: ubuntu-latest
     steps:
       - name: Display Information
@@ -20,4 +26,14 @@ jobs:
           echo "Actor ${{ github.actor }}"
       - name: Retrieve Variable
         run: echo "MY_VAR is ${{ vars.MY_VAR }}"
+      - name: Print Env variables
+        env:
+          MY_OVERWRITTEN_VAR: 'step'
+        run: |
+          echo "Workflow env ${{ env.vars.MY_WORKFLOW_VAR }}"
+          echo "Overwritten env ${{ env.vars.MY_OVERWRITTEN_VAR }}"  
+      - name: Print Env variables 2
+        run: |
+          echo "Workflow env ${{ env.vars.MY_WORKFLOW_VAR }}"
+          echo "Overwritten env ${{ env.vars.MY_OVERWRITTEN_VAR }}"  
 
