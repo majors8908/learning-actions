@@ -11,14 +11,14 @@ jobs:
       - name: failing_step
         run: exit 1
       - name: I will be skipped
-        if: success()
+        if: ${{ success() }}
         run: echo "i will print if prev steps succeed"
       - name: i will execute
-        if: failure()
+        if: ${{ failure() }}
         run: echo "i will print if any prev step fails"
       - name: i will execute
-        if: !cancelled()
+        if: ${{ !cancelled() }}
         run: echo "i will always print except when the wf is canceled"
       - name: i will execute when canceled
-        if: cancelled()
+        if: ${{ cancelled() }}
         run: echo "the run was canceled so i ran, i ran so far away" 
