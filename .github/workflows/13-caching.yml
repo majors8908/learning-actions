@@ -6,7 +6,15 @@ on:
       use-cache:
         type: boolean
         default: true
-        description: "Whether to execute cache step"
+        description: Whether to execute cache step
+      node-version:
+        type: choice
+        options:
+          - 18.x
+          - 20.x
+          - 21.x
+        default: 20.x
+        description: Node version
 
 jobs:
   build:
@@ -20,7 +28,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: 20.x
+          node-version: ${{ inputs.node-version }}
       - name: Install dependencies
         run: npm ci
       - name: Testing
